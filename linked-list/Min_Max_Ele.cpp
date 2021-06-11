@@ -12,21 +12,16 @@ public:
     }
 };
 
-Node *push(Node *head, int data) // Push a Node in linked list
+Node *createLinkedList(Node *head, vector<int> arr) // Time Complexity O(1) for one element. N element takes O(n)
 {
-    Node *p = new Node(data);
-    if (!head)
+    Node *p = new Node(arr[0]);
+    head = p;
+    auto temp = head;
+    for (int i = 1; i < arr.size(); i++)
     {
-        head = p;
-    }
-    else
-    {
-        Node *temp = head;
-        while (temp->next != NULL)
-        {
-            temp = temp->next;
-        }
-        temp->next = p;
+        Node *newNode = new Node(arr[i]);
+        temp->next = newNode;
+        temp = newNode;
     }
     return head;
 }
@@ -79,16 +74,12 @@ int RminElement(Node *s) // Minimum Element recursive method
 int main()
 {
     Node *start = NULL;
-    int arr[] = {4, 5, 87, 11, 0, 2, 8, 1};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    for (int i = 0; i < n; i++)
-    {
-        start = push(start, arr[i]);
-    }
-    cout << minElement(start) << " ";
-    cout << maxElement(start) << " ";
-    cout << RmaxElement(start) << " ";
-    cout << RminElement(start) << " ";
+    vector<int> arr = {4, 3, 5, 7, 9};
+    start = createLinkedList(start, arr); // create a linked list
+    cout << "Minimum element using iteartive method: " << minElement(start) << "\n";
+    cout << "Maximum element using recursive method: " << maxElement(start) << "\n";
+    cout << "Maximum element using iteartive method: " << RmaxElement(start) << "\n";
+    cout << "Minimum element using recursive method: " << RminElement(start) << "\n";
     return 0;
 }
 // By- Veeresh_Rex
