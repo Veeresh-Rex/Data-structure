@@ -12,21 +12,16 @@ public:
     }
 };
 
-Node *push(Node *head, int data) // Push a Node in linked list
+Node *createLinkedList(Node *head, vector<int> arr) // Time Complexity O(1) for one element. N element takes O(n)
 {
-    Node *p = new Node(data);
-    if (!head)
+    Node *p = new Node(arr[0]);
+    head = p;
+    auto temp = head;
+    for (int i = 1; i < arr.size(); i++)
     {
-        head = p;
-    }
-    else
-    {
-        Node *temp = head;
-        while (temp->next != NULL)
-        {
-            temp = temp->next;
-        }
-        temp->next = p;
+        Node *newNode = new Node(arr[i]);
+        temp->next = newNode;
+        temp = newNode;
     }
     return head;
 }
@@ -48,7 +43,7 @@ int countNodes(Node *start) // Count Nodes in Iterative Method
         start = start->next;
     }
     return c;
-}
+} //Time Complexity- O(n)
 
 //OR
 
@@ -57,7 +52,7 @@ int RCountNodes(Node *s) // Count Nodes in Recursive Method
     if (s == 0)
         return 0;
     return RCountNodes(s->next) + 1;
-}
+} //Time Complexity- O(n)
 
 //OR
 
@@ -71,17 +66,14 @@ int RnCountNodes(Node *s) // Count Nodes in Recursive another method
         x = RnCountNodes(s->next);
         return x + 1;
     }
-}
+} //Time Complexity- O(n)
 
 int main()
 {
-    Node *start = NULL;
-    int arr[] = {4, 5, 7, 11, 0, 2, 8, 1};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    for (int i = 0; i < n; i++)
-    {
-        start = push(start, arr[i]);
-    }
+    Node *start = NULL; // Linked list pointer
+    vector<int> arr = {4, 3, 5, 7, 9};
+    start = createLinkedList(start, arr); // create a linked list
+    cout << "No. of Nodes: \n";
     cout << countNodes(start) << "\n";
     cout << RCountNodes(start) << "\n";
     cout << RnCountNodes(start);
