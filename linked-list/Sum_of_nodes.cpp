@@ -12,21 +12,16 @@ public:
     }
 };
 
-Node *push(Node *head, int data) // Push a Node in linked list
+Node *createLinkedList(Node *head, vector<int> arr) // Time Complexity O(1) for one element. N element takes O(n)
 {
-    Node *p = new Node(data);
-    if (!head)
+    Node *p = new Node(arr[0]);
+    head = p;
+    auto temp = head;
+    for (int i = 1; i < arr.size(); i++)
     {
-        head = p;
-    }
-    else
-    {
-        Node *temp = head;
-        while (temp->next != NULL)
-        {
-            temp = temp->next;
-        }
-        temp->next = p;
+        Node *newNode = new Node(arr[i]);
+        temp->next = newNode;
+        temp = newNode;
     }
     return head;
 }
@@ -64,14 +59,10 @@ int RsumOfNodes(Node *s) // Sum of Nodes Recursive Method
 int main()
 {
     Node *start = NULL;
-    int arr[] = {4, 5, 7, 11, 0, 2, 8, 1};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    for (int i = 0; i < n; i++)
-    {
-        start = push(start, arr[i]);
-    }
-    cout << sumOfNodes(start) << "\n";
-    cout << RsumOfNodes(start);
+    vector<int> arr = {4, 3, 5, 7, 9};
+    start = createLinkedList(start, arr); // create a linked list
+    cout << "Sum of elements using iterative method: " << sumOfNodes(start) << "\n";
+    cout << "Sum of elements using recursive method: " << RsumOfNodes(start);
     return 0;
 }
 // By- Veeresh_Rex
